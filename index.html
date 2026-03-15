@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O&O Keuzeportaal | Schaersvoorde</title>
+<style>
+        :root {
+            --schaers-blauw: #004595;
+            --schaers-roze: #d8006d;
+            --schaers-groen: #8ec63f;
+            --licht-blauw: #f0f7fa;
+            --wit: #ffffff;
+            --tekst: #1c1e21;
+        }
+ 
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+        body { 
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif; 
+            margin: 0; 
+            background-color: #f4f4f4; 
+            color: var(--tekst); 
+            line-height: 1.6;
+        }
+ 
+        /* LOGIN */
+        #login-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--schaers-blauw), #002d62); 
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999;
+        }
+        .login-box {
+            background: white; padding: 40px; border-radius: 20px; text-align: center;
+            width: 90%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+ 
+        header {
+            background: white; padding: 15px 10%; border-bottom: 1px solid #ddd;
+            display: flex; justify-content: center; align-items: center;
+            position: sticky; top: 0; z-index: 100;
+        }
+        header img { height: 60px; }
+ 
+        /* NAVIGATIE BALK */
+        .pink-bar {
+            background: var(--schaers-roze);
+            padding: 10px;
+            border-radius: 50px;
+            margin: 20px 5% 30px 5%;
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;
+            box-shadow: 0 10px 20px rgba(216, 0, 109, 0.25);
+        }
+        .pink-bar a {
+            color: white; text-decoration: none; font-weight: bold; font-size: 0.75rem;
+            padding: 8px 15px; border-radius: 25px; transition: 0.3s;
+            text-transform: uppercase;
+        }
+        .pink-bar a:hover { background: rgba(255,255,255,0.3); }
+ 
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .section { 
+            background: white; padding: 40px; border-radius: 15px; 
+            margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            scroll-margin-top: 100px;
+        }
+ 
+        h2 { color: var(--schaers-blauw); border-left: 6px solid var(--schaers-roze); padding-left: 15px; }
+        h3 { color: var(--schaers-roze); margin-top: 20px; }
+ 
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card {
+            background: var(--licht-blauw); padding: 25px; border-radius: 15px;
+            border-bottom: 4px solid var(--schaers-groen); transition: 0.3s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+ 
+        /* AANGEPASTE FOTO STYLING: GROTER EN VOLLEDIG ZICHTBAAR */
+        .docent-img {
+            width: 100%; /* Gebruikt de volledige breedte van het vakje */
+            max-width: 250px; /* Maximale breedte */
+            height: 300px; /* Vaste hoogte voor eenheid */
+            border-radius: 10px; /* Licht afgeronde hoeken in plaats van rond */
+            object-fit: contain; /* Zorgt dat de HELE foto in het vakje past zonder bijsnijden */
+            margin-bottom: 15px;
+            background-color: white; /* Achtergrondkleur als de foto kleiner is dan het vakje */
+            border: 2px solid #eee;
+        }
+ 
+        .quote {
+            font-style: italic; color: #444; border-left: 4px solid var(--schaers-roze);
+            padding: 15px; margin: 20px 0; background: #fff5fa; border-radius: 0 10px 10px 0;
+        }
+ 
+        .ai-tool-box {
+            background: #fdfdfd; border: 1px solid #ddd; padding: 15px;
+            border-radius: 10px; margin-top: 10px;
+        }
+        .ai-link { color: var(--schaers-blauw); font-weight: bold; text-decoration: none; }
+ 
+        footer {
+            background: var(--schaers-blauw); color: white; text-align: center;
+            padding: 40px; margin-top: 50px;
+        }
+ 
+        /* QUIZ */
+        .quiz-card { background: #fff; padding: 30px; border-radius: 15px; text-align: center; border: 3px solid var(--schaers-roze); }
+        .answer-btn {
+            background: var(--schaers-blauw); color: white; border: none;
+            padding: 12px 25px; margin: 10px; border-radius: 8px;
+            cursor: pointer; font-weight: bold; width: 120px; transition: 0.2s;
+        }
+        .answer-btn:hover { background: var(--schaers-groen); transform: scale(1.05); }
+</style>
+</head>
+<body>
+ 
+<div id="login-screen">
+<div class="login-box">
+<img src="C:\Users\Vycho Lurvink\Downloads\images.png" alt="Schaersvoorde Logo" style="width:250px; margin-bottom:20px;">
+<img src="C:\Users\Vycho Lurvink\Downloads\Wat is Technasium - Technasium.png" alt="Schaersvoorde Logo" style="width:250px; margin-bottom:20px;">
+<h3>O&O Keuzeportaal</h3>
+<p>Log in met je SV-nummer om je toekomst te bekijken.</p>
+<input type="text" id="sv_input" placeholder="SV-nummer" style="padding:12px; width:100%; border:1px solid #ccc; border-radius:5px; margin-bottom:10px;">
+<button onclick="startApp()" style="background:var(--schaers-roze); color:white; border:none; padding:12px 30px; border-radius:5px; cursor:pointer; width:100%; font-weight:bold;">BEKIJK WEBSITE</button>
+</div>
+</div>
+ 
+<div id="main-app" style="display:none;">
+<header>
+<img src="C:\Users\Vycho Lurvink\Downloads\images.png" alt="C:\Users\Vycho Lurvink\Downloads\images">
+<img src="C:\Users\Vycho Lurvink\Downloads\Wat is Technasium - Technasium.png" alt="Schaersvoorde Logo" style="width:250px; margin-bottom:20px;">
+ 
+    </header>
+ 
+    <div class="pink-bar">
+<a href="#wat-is-oo">Wat is O&O?</a>
+<a href="#onderbouw">Onderbouw</a>
+<a href="#klas4">Klas 4</a>
+<a href="#ervaringen">Ervaringen</a>
+<a href="#projecten">Projecten</a>
+<a href="#ai">AI Tools</a>
+<a href="#docenten">Docenten</a>
+<a href="#quiz">De Quiz</a>
+</div>
+ 
+    <div class="container">
+<section class="section" id="wat-is-oo">
+<h2>Wat is O&O op Schaersvoorde?</h2>
+<p>Binnen het Technasium volg je het vak <strong>Onderzoek & Ontwerpen (O&O)</strong>. Je werkt aan echte opdrachten van echte bedrijven.</p>
+<div class="grid-3">
+<div class="card"><h4>Loopbaanoriëntatie</h4><p>Kijkje in de keuken bij technische bedrijven.</p></div>
+<div class="card"><h4>Competenties</h4><p>Leren samenwerken en creatief problemen oplossen.</p></div>
+<div class="card"><h4>Techniek</h4><p>Werken met 3D-printers en lasersnijders.</p></div>
+</div>
+</section>
+ 
+        <section class="section" id="onderbouw">
+<h2>De Onderbouw: De Basis</h2>
+<p>In de eerste drie jaar focus je volledig op O&O. Geen saaie toetsen, maar vette presentaties aan de opdrachtgever!</p>
+</section>
+ 
+        <section class="section" id="klas4">
+<h2>Klas 4: Het Keuzejaar</h2>
+<p>In klas 4 krijg je een combinatie: <strong>O&O én NLT</strong>. Aan het einde van het jaar kies jij je pad.</p>
+<div class="grid-3">
+<div class="card">
+<h3>O&O</h3>
+<p>Rond af met de <strong>Meesterproef</strong> in de bovenbouw.</p>
+</div>
+<div class="card">
+<h3>NLT</h3>
+<p>Wetenschappelijke modules die meetellen voor je examen.</p>
+</div>
+</div>
+</section>
+ 
+        <section class="section" id="ervaringen">
+<h2>Bovenbouwervaringen</h2>
+<div class="quote">“O&O is voor mij nuttig voor de rest van het leven.” <br><strong>– Aimée Hoftijzer, VWO 6</strong></div>
+<div class="quote">“In de bovenbouw mag je steeds meer zelf kiezen wat je wilt doen.”</div>
+<div class="quote">“Het biedt nieuwe perspectieven en bevordert je probleemoplossend denken.” <br><strong>– Leerling VWO 5</strong></div>
+</section>
+ 
+        <section class="section" id="projecten">
+<h2>Projecten Showcase</h2>
+<div class="grid-3">
+<div class="card"><h3>Duurzame Kantine</h3><p>Ontwerp een systeem voor Schaersvoorde.</p></div>
+<div class="card"><h3>Smart Living</h3><p>Ontwerp een huis vol slimme sensoren.</p></div>
+<div class="card"><h3>De Meesterproef</h3><p>Jouw eigen meesterwerk in het laatste jaar.</p></div>
+</div>
+</section>
+ 
+        <section class="section" id="ai">
+<h2>AI Tools & Handleiding</h2>
+<p>Deze website is gemaakt met behulp van AI. Gebruik deze tools ook voor jouw projecten:</p>
+<div class="ai-tool-box">
+<h4>Aanbevolen Tools:</h4>
+<p>ChatGPT (Code & Tekst), Gemini 3(afbeeldingen).</p>
+<a href="https://chat.openai.com" target="_blank" class="ai-link">Bezoek ChatGPT →</a>
+</div>
+</section>
+ 
+        <section class="section" id="docenten">
+<h2>Het O&O Team</h2>
+<p>De docenten die jullie begeleiden bij het ontwerpen en onderzoeken:</p>
+<div class="grid-3">
+<div class="card">
+<img src="C:\Users\Vycho Lurvink\Downloads\afbeelding (2).png" alt="Timon Geurts" class="docent-img">
+<h3>Timon Geurts</h3>
+<p>Techniek & Slay-begeleiding.</p>
+</div>
+<div class="card">
+<img src="C:\Users\Vycho Lurvink\Downloads\afbeelding.jpeg" alt="Chiel Grijsen" class="docent-img">
+<h3>Chiel Grijsen</h3>
+<p>Project Master.</p>
+</div>
+<div class="card">
+<img src="C:\Users\Vycho Lurvink\Downloads\afbeelding (1).jpeg" alt="Heleen Veerbeek" class="docent-img">
+<h3>Heleen Veerbeek</h3>
+<p>Proces Coach.</p>
+</div>
+<div class="card">
+<img src="C:\Users\Vycho Lurvink\Downloads\afbeelding (4).png" alt="Naomi Chevaling" class="docent-img">
+<h3>Naomi Chevaling</h3>
+<p>Research Expert.</p>
+</div>
+<div class="card">
+<img src="C:\Users\Vycho Lurvink\Downloads\afbeelding (5).png" alt="Marije de Vries" class="docent-img">
+<h3>Marije de Vries</h3>
+<p>Theorie & Praktijk.</p>
+</div>
+</div>
+</section>
+ 
+        <section class="section" id="quiz">
+<h2>Zou jij O&O moeten kiezen?</h2>
+<div class="quiz-card" id="quiz-box">
+<p id="question-text">Klik op de knop om de check te starten!</p>
+<button class="answer-btn" onclick="nextQuestion()" id="start-btn">Start Quiz</button>
+<div id="quiz-options" style="display:none;">
+<button class="answer-btn" onclick="handleAnswer()">Ja</button>
+<button class="answer-btn" onclick="handleAnswer()">Nee</button>
+</div>
+</div>
+</section>
+ 
+        <section class="section">
+<h2>Over Ons & Privacy</h2>
+<p>Gemaakt door: <strong>Zahra Hoftijzer, Vycho Lurvink & Malou Maas (V4)
+                         , op onze website wordt rekening gehouden met privacy wetgeving, afbeeldingen of gegevens van personen worden niet zonder toestemming gedeeld </strong>.</p>
+</section>
+ 
+    </div>
+ 
+    <footer>
+<p><strong>Schaersvoorde O&O Portaal</strong></p>
+<p>Tot volgend jaar girlie! ✨💅</p>
+<img src="C:\Users\Vycho Lurvink\Downloads\afbeelding (6).png" alt="Schaersvoorde Logo" style="width:250px; margin-bottom:20px;">
+</footer>
+</div>
+ 
+<script>
+    function startApp() {
+        const sv = document.getElementById('sv_input').value;
+        if (sv.length >= 5) {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+        } else {
+            alert("Vul je SV-nummer in!");
+        }
+    }
+ 
+    let qIndex = 0;
+    const questions = [
+        "Vind je het leuk om zelf dingen te bedenken?",
+        "Werk je liever aan een project dan dat je uit een boek leert?",
+        "Wil je later een baan waar je echt impact maakt?",
+        "Vind je technologie stiekem best interessant?"
+    ];
+ 
+    function nextQuestion() {
+        document.getElementById('start-btn').style.display = 'none';
+        document.getElementById('quiz-options').style.display = 'block';
+        if (qIndex < questions.length) {
+            document.getElementById('question-text').innerText = questions[qIndex];
+            qIndex++;
+        } else {
+            showResult();
+        }
+    }
+ 
+    function handleAnswer() { nextQuestion(); }
+ 
+    function showResult() {
+        document.getElementById('quiz-options').style.display = 'none';
+        document.getElementById('question-text').innerHTML = 
+            "<h2 style='color:var(--schaers-roze)'>RESULTAAT: 100% O&O!</h2>" +
+            "<p>Eerlijk... jij bent een geboren Technator! ✨💅</p>" +
+            "<button class='answer-btn' onclick='location.reload()' style='width:200px'>Opnieuw</button>";
+    }
+</script>
+ 
+</body>
+</html>
